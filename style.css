@@ -1,0 +1,320 @@
+/* ============================================================
+   AGRILINK - STYLE SHEET (split HTML/CSS/JS)
+   Ditulis ulang agar rapi, terpisah, dan lebih "unik".
+   Tampilan utama mengikuti Tailwind CDN (agri theme).
+   ============================================================ */
+
+:root {
+  --agri-dark:      #1B4332;
+  --agri-deep:      #081C15;
+  --agri-primary:   #2D6A4F;
+  --agri-fresh:     #52B788;
+  --agri-light:     #D8F3DC;
+  --agri-gold:      #FFB703;
+  --agri-gold-hover:#FB8500;
+  --agri-bg:        #F4F7F5;
+  --card:           #FFFFFF;
+  --border:         #E2E8F0;
+  --text:           #1A2738;
+  --muted:          #5A6D80;
+  --danger:         #E63946;
+  --shadow:         0 12px 32px rgba(8, 28, 21, 0.16);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  background-color: #E2E8F0;
+  -webkit-tap-highlight-color: transparent;
+  color: var(--text);
+  overflow: hidden;
+}
+
+/* ===== Scrollbar (sleek) ===== */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ===== Animasi umum ===== */
+@keyframes slideUp {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes pulseLogo {
+  0%, 100% { box-shadow: 0 0 0 0 var(--agri-gold); }
+  50%      { box-shadow: 0 0 0 10px rgba(255, 183, 3, 0); }
+}
+.animate-slide-up { animation: slideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-fade-in  { animation: fadeIn 0.25s ease-out forwards; }
+.pulse-logo       { animation: pulseLogo 2s infinite; }
+
+/* ============================================================
+   LOGIN / REGISTER OVERLAY
+   ============================================================ */
+#auth-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(8, 28, 21, 0.65);
+  backdrop-filter: blur(12px);
+  animation: fadeIn 0.3s ease-out;
+}
+
+#auth-overlay:not(.hidden) {
+  display: flex;
+}
+
+#auth-overlay.hidden {
+  display: none !important;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  box-shadow: var(--shadow), 0 0 0 1px rgba(255,255,255,0.6) inset;
+  padding: 28px 26px 24px;
+  position: relative;
+  animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.auth-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.auth-brand .logo-ring {
+  width: 46px;
+  height: 46px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--agri-dark), var(--agri-primary));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 22px;
+  box-shadow: 0 8px 18px rgba(45, 106, 79, 0.35);
+  animation: pulseLogo 2.6s infinite;
+}
+
+.auth-brand .brand-name {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--agri-dark);
+  letter-spacing: -0.3px;
+}
+
+.auth-brand .brand-badge {
+  font-size: 10px;
+  font-weight: 700;
+  background: var(--agri-gold);
+  color: var(--agri-deep);
+  padding: 3px 9px;
+  border-radius: 999px;
+  margin-left: 6px;
+}
+
+.auth-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.auth-tab {
+  padding: 11px 0;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 13px;
+  transition: all 0.18s ease;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--muted);
+}
+
+.auth-tab.active {
+  background: var(--agri-dark);
+  color: #fff;
+  border-color: var(--agri-dark);
+  box-shadow: 0 6px 14px rgba(27, 67, 50, 0.28);
+}
+
+.auth-tab:hover:not(.active) {
+  background: #F1F5F4;
+  color: var(--agri-primary);
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.auth-field {
+  position: relative;
+}
+
+.auth-input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  font-size: 14px;
+  font-family: inherit;
+  background: #F8FAF9;
+  color: var(--text);
+  transition: border 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+  outline: none;
+}
+
+.auth-input:focus {
+  border-color: var(--agri-primary);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.15);
+}
+
+.auth-input::placeholder {
+  color: var(--muted);
+}
+
+.auth-input[type="select"] {
+  padding: 10px 12px;
+  font-size: 13px;
+}
+
+.password-wrapper {
+  position: relative;
+}
+
+.password-wrapper .auth-input {
+  padding-right: 48px;
+}
+
+.eye-btn {
+  position: absolute;
+  right: 11px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: var(--muted);
+  transition: color 0.18s ease;
+  background: none;
+  border: none;
+  padding: 4px;
+}
+
+.eye-btn:hover { color: var(--agri-primary); }
+
+.auth-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.remember-me input[type="checkbox"] {
+  width: 17px;
+  height: 17px;
+  accent-color: var(--agri-primary);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.auth-error {
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #FEE2E2;
+  color: var(--danger);
+  font-size: 13px;
+  text-align: center;
+  border: 1px solid #FECACA;
+}
+
+.auth-note {
+  margin-top: 16px;
+  text-align: center;
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.auth-link {
+  color: var(--agri-primary);
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* ===== Button ===== */
+.auth-btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--agri-gold), var(--agri-gold-hover));
+  color: var(--agri-deep);
+  font-weight: 800;
+  font-size: 15px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.18s ease;
+  box-shadow: 0 8px 18px rgba(255, 183, 3, 0.35);
+}
+
+.auth-btn:hover {
+  transform: translateY(-1px) scale(1.01);
+  box-shadow: 0 12px 24px rgba(255, 183, 3, 0.45);
+}
+
+.auth-footer {
+  margin-top: 18px;
+  text-align: center;
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* ===== Responsive ===== */
+@media (min-width: 640px) {
+  .auth-card {
+    padding: 32px 36px;
+    max-width: 440px;
+    border-width: 1px;
+  }
+}
